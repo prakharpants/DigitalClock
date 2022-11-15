@@ -5,6 +5,7 @@ const ampmEl = document.getElementById("ampm");
 let search = document.querySelector(".icon");
 let clientID = "8I6_-D0o3xQe4yea7QOVlhQAiseOZnrEH5L-Q3dAOQE";
 let endpoint = `https://api.unsplash.com/photos/random/?client_id=Ed0qvd9WyNFqkIRJnPytgIFcixTCL9Niqm1zoBte_5U`;
+
 fetch(endpoint)
   .then(function (response) {
     return response.json();
@@ -14,6 +15,7 @@ fetch(endpoint)
     document.body.style.background = `url(${Data["urls"]["raw"]})`;
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundSize = "cover";
+    document.getElementById("creator").innerText = Data.user.name;
   });
 
 function updateClock() {
