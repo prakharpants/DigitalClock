@@ -1,0 +1,29 @@
+name: Deploy to Azure Web App
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment on push to main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js (if required for any JS build steps)
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Archive files
+      run: zip -r digitalclock.zip ./
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: '<YOUR-WEB-APP-NAME>'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ./digitalclock.zip
